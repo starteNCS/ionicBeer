@@ -3,9 +3,14 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'container'
+  },
+  {
     path: 'container',
     loadChildren: () => import('./pages/container/container.module').then( m => m.ContainerPageModule)
-  }
+  },
 ];
 @NgModule({
   imports: [
