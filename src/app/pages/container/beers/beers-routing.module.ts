@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: BeersPage
+  },
+  {
+    path: 'create-beer',
+    loadChildren: () => import('./subpages/create-beer/create-beer.module').then( m => m.CreateBeerPageModule)
   }
 ];
 

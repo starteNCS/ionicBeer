@@ -1,9 +1,29 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Alle Biere</ion-title>
+    <ion-title>Biere</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="filter-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-searchbar showCancelButton="focus" placeholder="Suchen"></ion-searchbar>
+  <app-beer-card type="Pils" manufacturer="Bitburger" name="Pilsener" [hasOwnRating]="true" rating="10.0" average="9.5">
+  </app-beer-card>
+  <app-beer-card type="Pils" manufacturer="Grolsch" name="Premium Pilsener" [hasOwnRating]="false" average="9.5">
+  </app-beer-card>
+  <app-beer-card type="Helles" manufacturer="Ottakringer" name="Kühles Blondes" [hasOwnRating]="true" rating="9"
+    average="9.5">
+  </app-beer-card>
+  <app-beer-card type="Pils" manufacturer="Heineken" name="Pils" [hasOwnRating]="true" rating="8" average="8.2">
+  </app-beer-card>
 
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['create-beer']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

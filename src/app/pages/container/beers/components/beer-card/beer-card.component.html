@@ -1,0 +1,19 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-subtitle>{{type}}</ion-card-subtitle>
+    <ion-card-title>{{manufacturer}} {{name}}</ion-card-title>
+  </ion-card-header>
+  <ion-item>
+    <ion-label>Bewertungen</ion-label>
+    <ion-note slot="end" color="secondary">von 10</ion-note>
+  </ion-item>
+  <ion-item>
+    <ion-label>Meine</ion-label>
+    <ion-note slot="end" color="secondary" *ngIf="hasOwnRating">{{rating | number:'1.2-2'}}</ion-note>
+    <ion-button fill="outline" slot="end" *ngIf="!hasOwnRating">Bewerten</ion-button>
+  </ion-item>
+  <ion-item>
+    <ion-label>Durschnitt</ion-label>
+    <ion-note slot="end" color="secondary">{{average | number:'1.2-2'}}</ion-note>
+  </ion-item>
+</ion-card>

@@ -12,4 +12,8 @@ export class BeersPage implements OnInit {
   ngOnInit() {
   }
 
+  loadData(): void {
+    
+  }
+
 }
