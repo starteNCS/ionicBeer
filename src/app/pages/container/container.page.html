@@ -1,9 +1,18 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>container</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="statistics">
+      <ion-icon name="stats-chart-outline"></ion-icon>
+      <ion-label>Statistik</ion-label>
+    </ion-tab-button>
 
-<ion-content>
+    <ion-tab-button tab="beers">
+      <ion-icon name="beer-outline"></ion-icon>
+      <ion-label>Alle Biere</ion-label>
+    </ion-tab-button>
 
-</ion-content>
+    <ion-tab-button tab="groups">
+      <ion-icon name="people-outline"></ion-icon>
+      <ion-label>Gruppen</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
