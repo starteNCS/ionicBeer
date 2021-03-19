@@ -1,8 +1,8 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Biere</ion-title>
+    <ion-searchbar showCancelButton="focus" placeholder="Biere durchsuchen"></ion-searchbar>
     <ion-buttons slot="end">
-      <ion-button>
+      <ion-button end>
         <ion-icon name="filter-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -10,7 +10,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar showCancelButton="focus" placeholder="Suchen"></ion-searchbar>
   <app-beer-card type="Pils" manufacturer="Bitburger" name="Pilsener" [hasOwnRating]="true" rating="10.0" average="9.5">
   </app-beer-card>
   <app-beer-card type="Pils" manufacturer="Grolsch" name="Premium Pilsener" [hasOwnRating]="false" average="9.5">

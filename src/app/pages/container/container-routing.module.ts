@@ -6,6 +6,11 @@ import { ContainerPage } from './container.page';
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
+    redirectTo: 'beers'
+  },
+  {
+    path: '',
     component: ContainerPage,
     children: [
       {
