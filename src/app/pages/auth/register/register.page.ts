@@ -1,6 +1,8 @@
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Store } from '@ngxs/store';
+import { User } from 'src/app/store/actions/user.actions';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +20,8 @@ export class RegisterPage implements OnInit {
 
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly firebaseAuth: AngularFireAuth) { }
+    private readonly firebaseAuth: AngularFireAuth,
+    private readonly store: Store) { }
 
   ngOnInit() {
     this.formGroup = this.formBuilder.group({
@@ -39,7 +42,7 @@ export class RegisterPage implements OnInit {
       .then((response: firebase.default.auth.UserCredential) => {
         
       }, (error) => {
-
+        this.store.dispatch(new User.RegisterFail("Die Kombination aus E-Mail und Passwort existiert nicht."));
       });
   }
 
