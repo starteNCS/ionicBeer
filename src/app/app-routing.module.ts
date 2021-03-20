@@ -10,7 +10,15 @@ const routes: Routes = [
   {
     path: 'container',
     loadChildren: () => import('./pages/container/container.module').then( m => m.ContainerPageModule)
+  },  {
+    path: 'login',
+    loadChildren: () => import('./pages/auth/login/login.module').then( m => m.LoginPageModule)
   },
+  {
+    path: 'register',
+    loadChildren: () => import('./pages/auth/register/register.module').then( m => m.RegisterPageModule)
+  },
+
 ];
 @NgModule({
   imports: [

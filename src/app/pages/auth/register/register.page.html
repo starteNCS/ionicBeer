@@ -1,0 +1,42 @@
+<ion-content>
+  <div class="w-100 my-4 d-flex justify-content-center">
+    <img src="assets/logo.png" class="w-75" />
+  </div>
+
+  <div class="container" [formGroup]="formGroup">
+    <div>
+      <ion-item class="my-2">
+        <ion-label position="fixed">Name</ion-label>
+        <ion-input formControlName="name"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="(name.dirty || name.touched) && name.hasError('required')">
+        Du musst deinen Namen angeben.
+      </ion-text>
+    </div>
+    <div>
+      <ion-item class="my-2">
+        <ion-label position="fixed">E-Mail</ion-label>
+        <ion-input formControlName="email"></ion-input>
+      </ion-item>
+      <ion-text color="danger" class="w-100" *ngIf="(email.dirty || email.touched) && email.hasError('required')">
+        Du musst deine Email Adresse angeben.
+      </ion-text>
+      <ion-text color="danger" class="w-100" *ngIf="(email.dirty || email.touched) && email.hasError('email')">
+        Die angegebene Adresse ist nicht im richtigen Format.
+      </ion-text>
+    </div>
+    <div>
+      <ion-item class="my-2">
+        <ion-label position="fixed">Passwort</ion-label>
+        <ion-input formControlName="password"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="(password.dirty || password.touched) && password.hasError('required')">
+        Du musst ein Passwort angeben.
+      </ion-text>
+    </div>
+    <ion-button class="w-100" (click)="register()">
+      <ion-icon slot="start" name="log-in-outline"></ion-icon>
+      Registrieren
+    </ion-button>
+  </div>
+</ion-content>
