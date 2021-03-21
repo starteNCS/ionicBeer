@@ -9,19 +9,19 @@
         <ion-label position="fixed">E-Mail</ion-label>
         <ion-input formControlName="email"></ion-input>
       </ion-item>
-      <ion-text color="danger" class="w-100" *ngIf="(email.dirty || email.touched) && email.hasError('required')">
+      <ion-text color="warning" class="w-100" *ngIf="(email.dirty || email.touched) && email.hasError('required')">
         Du musst deine Email Adresse angeben.
       </ion-text>
-      <ion-text color="danger" class="w-100" *ngIf="(email.dirty || email.touched) && email.hasError('email')">
+      <ion-text color="warning" class="w-100" *ngIf="(email.dirty || email.touched) && email.hasError('email')">
         Die angegebene Adresse ist nicht im richtigen Format.
       </ion-text>
     </div>
     <div>
       <ion-item class="my-2">
         <ion-label position="fixed">Passwort</ion-label>
-        <ion-input formControlName="password"></ion-input>
+        <ion-input formControlName="password" type="password"></ion-input>
       </ion-item>
-      <ion-text color="danger" *ngIf="(password.dirty || password.touched) && password.hasError('required')">
+      <ion-text color="warning" *ngIf="(password.dirty || password.touched) && password.hasError('required')">
         Du musst ein Passwort angeben.
       </ion-text>
     </div>
@@ -29,5 +29,10 @@
       <ion-icon slot="start" name="log-in-outline"></ion-icon>
       Login
     </ion-button>
+  </div>
+  <div class="w-100 text-center pt-4" (click)="navigateToRegister()">
+    <ion-text>
+      Du hast noch keinen Account? Dann erstelle dir hier einen.
+    </ion-text>
   </div>
 </ion-content>

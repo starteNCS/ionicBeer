@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Store } from '@ngxs/store';
 import { User } from 'src/app/store/actions/user.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginPage implements OnInit {
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly firebaseAuth: AngularFireAuth,
-    private readonly store: Store) { }
+    private readonly store: Store,
+    private readonly router: Router) { }
 
   ngOnInit() {
     this.formGroup = this.formBuilder.group({
@@ -37,10 +39,15 @@ export class LoginPage implements OnInit {
 
     this.firebaseAuth
       .signInWithEmailAndPassword(this.email.value, this.password.value)
-      .then((response: firebase.default.auth.UserCredential) => {        
+      .then((response: firebase.default.auth.UserCredential) => {       
+        this.router.navigateByUrl('/');
       }, (error) => {
         this.store.dispatch(new User.LoginFail("Die Kombination aus E-Mail und Passwort existiert nicht."));
       });
+  }
+
+  navigateToRegister(): void {
+    this.router.navigateByUrl('/register');
   }
 
   get email(): AbstractControl {

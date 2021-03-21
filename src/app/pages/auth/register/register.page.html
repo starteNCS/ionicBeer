@@ -1,4 +1,5 @@
 <ion-content>
+  <ion-progress-bar type="indeterminate" *ngIf="loading$ | async"></ion-progress-bar>
   <div class="w-100 my-4 d-flex justify-content-center">
     <img src="assets/logo.png" class="w-75" />
   </div>
@@ -9,7 +10,7 @@
         <ion-label position="fixed">Name</ion-label>
         <ion-input formControlName="name"></ion-input>
       </ion-item>
-      <ion-text color="danger" *ngIf="(name.dirty || name.touched) && name.hasError('required')">
+      <ion-text color="warning" *ngIf="(name.dirty || name.touched) && name.hasError('required')">
         Du musst deinen Namen angeben.
       </ion-text>
     </div>
@@ -18,25 +19,30 @@
         <ion-label position="fixed">E-Mail</ion-label>
         <ion-input formControlName="email"></ion-input>
       </ion-item>
-      <ion-text color="danger" class="w-100" *ngIf="(email.dirty || email.touched) && email.hasError('required')">
+      <ion-text color="warning" class="w-100" *ngIf="(email.dirty || email.touched) && email.hasError('required')">
         Du musst deine Email Adresse angeben.
       </ion-text>
-      <ion-text color="danger" class="w-100" *ngIf="(email.dirty || email.touched) && email.hasError('email')">
+      <ion-text color="warning" class="w-100" *ngIf="(email.dirty || email.touched) && email.hasError('email')">
         Die angegebene Adresse ist nicht im richtigen Format.
       </ion-text>
     </div>
     <div>
       <ion-item class="my-2">
         <ion-label position="fixed">Passwort</ion-label>
-        <ion-input formControlName="password"></ion-input>
+        <ion-input formControlName="password" type="password"></ion-input>
       </ion-item>
-      <ion-text color="danger" *ngIf="(password.dirty || password.touched) && password.hasError('required')">
+      <ion-text color="warning" *ngIf="(password.dirty || password.touched) && password.hasError('required')">
         Du musst ein Passwort angeben.
       </ion-text>
     </div>
-    <ion-button class="w-100" (click)="register()">
+    <ion-button class="w-100" (click)="register()" [disabled]="loading$ | async">
       <ion-icon slot="start" name="log-in-outline"></ion-icon>
       Registrieren
     </ion-button>
+  </div>
+  <div class="w-100 text-center pt-4" (click)="navigateToLogin()">
+    <ion-text>
+      Du hast bereits einen Account? Dann melde dich hier an.
+    </ion-text>
   </div>
 </ion-content>
