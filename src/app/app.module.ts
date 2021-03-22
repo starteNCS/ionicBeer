@@ -1,3 +1,4 @@
+import { BeerState } from './store/beer.state';
 import { FirebaseInterceptor } from './utils/interceptors/firebase.interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -28,6 +29,7 @@ import { UserState } from './store/user.state';
     AngularFireAuthModule,
     NgxsModule.forRoot([
       UserState,
+      BeerState
     ], { developmentMode: !environment.production }),
     NgxsLoggerPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot()

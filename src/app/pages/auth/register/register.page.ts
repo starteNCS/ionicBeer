@@ -57,7 +57,7 @@ export class RegisterPage implements OnInit, OnDestroy {
       return;
     }
 
-    this.store.dispatch(new User.Create(this.email.value as string, this.password.value, {
+    this.store.dispatch(new User.Create(this.email.value, this.password.value, {
       name: this.name.value
     }));
   }
