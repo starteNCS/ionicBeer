@@ -1,3 +1,4 @@
+import firebase from 'firebase';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -9,14 +10,18 @@ export class BeerCardComponent implements OnInit {
 
   @Input() manufacturer: string;
   @Input() name: string;
-  @Input() type: string;
-  @Input() hasOwnRating: string;
+  @Input() type: number;
+  @Input() hasOwnRating: boolean;
   @Input() rating: number;
   @Input() average: number;
 
+  public typeString: string;
 
   constructor() { }
 
-  ngOnInit() {}
+  async ngOnInit() {
+    const type = await firebase.database().ref(`beers/types/${this.type}`).get();
+    this.typeString = type.val() as string;
+  }
 
 }

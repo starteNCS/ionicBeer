@@ -34,7 +34,8 @@ export class BeerState {
 
         firebase.database().ref('beers/products').push(
             beer,
-            (error) => {
+            (error?) => {
+                this.patchLoadingOperations(context, -1);
                 if (error) {
                     context.dispatch(new Beer.CreateFail(error.message));
                     return;

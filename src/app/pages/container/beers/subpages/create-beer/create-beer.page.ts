@@ -54,7 +54,6 @@ export class CreateBeerPage implements OnInit, OnDestroy {
   }
 
   save(): void {
-    debugger;
     if(this.formGroup.invalid){
       this.formGroup.markAllAsTouched();
       return;

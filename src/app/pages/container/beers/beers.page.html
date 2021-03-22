@@ -10,14 +10,13 @@
 </ion-header>
 
 <ion-content>
-  <app-beer-card type="Pils" manufacturer="Bitburger" name="Pilsener" [hasOwnRating]="true" rating="10.0" average="9.5">
-  </app-beer-card>
-  <app-beer-card type="Pils" manufacturer="Grolsch" name="Premium Pilsener" [hasOwnRating]="false" average="9.5">
-  </app-beer-card>
-  <app-beer-card type="Helles" manufacturer="Ottakringer" name="Kühles Blondes" [hasOwnRating]="true" rating="9"
-    average="9.5">
-  </app-beer-card>
-  <app-beer-card type="Pils" manufacturer="Heineken" name="Pils" [hasOwnRating]="true" rating="8" average="8.2">
+  <ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
+  <app-beer-card *ngFor="let beer of availableBeers"
+    [manufacturer]="beer.manufacturer"
+    [name]="beer.name"
+    [type]="beer.type"
+    [hasOwnRating]="false"
+    [average]="9">
   </app-beer-card>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
