@@ -1,11 +1,11 @@
 import { takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { BeerState } from './../../../../../store/beer.state';
-import firebase from 'firebase';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { Beer } from 'src/app/store/actions/beer.actions';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Component({
   selector: 'app-create-beer',
@@ -28,7 +28,8 @@ export class CreateBeerPage implements OnInit, OnDestroy {
 
   constructor(
     private readonly builder: FormBuilder,
-    private readonly store: Store) { }
+    private readonly store: Store,
+    private readonly fireDatabase: AngularFireDatabase) { }
 
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -63,7 +64,7 @@ export class CreateBeerPage implements OnInit, OnDestroy {
   }
 
   async getTypes(): Promise<void> {
-    const typesSnapshot = await firebase.database().ref('beers/types').get();
+    const typesSnapshot = await this.fireDatabase.database.ref('beers/types').get();
     this.types = typesSnapshot.val();
   }
 

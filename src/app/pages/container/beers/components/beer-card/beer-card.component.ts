@@ -1,5 +1,5 @@
-import firebase from 'firebase';
 import { Component, Input, OnInit } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Component({
   selector: 'app-beer-card',
@@ -17,10 +17,10 @@ export class BeerCardComponent implements OnInit {
 
   public typeString: string;
 
-  constructor() { }
+  constructor(private readonly fireDatabase: AngularFireDatabase) { }
 
   async ngOnInit() {
-    const type = await firebase.database().ref(`beers/types/${this.type}`).get();
+    const type = await this.fireDatabase.database.ref(`beers/types/${this.type}`).get();
     this.typeString = type.val() as string;
   }
 

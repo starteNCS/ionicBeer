@@ -1,10 +1,10 @@
 import { BeerStateModel } from './models/beer-state.model';
-import firebase from 'firebase';
 import { Injectable } from "@angular/core";
 import { Action, Selector, State, StateContext } from "@ngxs/store";
 import { Router } from '@angular/router';
 import { Beer } from './actions/beer.actions';
 import { BeerModel } from '../utils/models/beer/beer.model';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @State<BeerStateModel>({
     name: 'BeerState',
@@ -20,7 +20,9 @@ export class BeerState {
         return state.loadingOperations > 0;
     }
 
-    constructor(private readonly router: Router) { }
+    constructor(
+        private readonly router: Router,
+        private readonly fireDatabase: AngularFireDatabase) { }
 
     @Action(Beer.Create)
     async createBeer(context: StateContext<BeerStateModel>, action: Beer.Create): Promise<void> {
@@ -32,7 +34,7 @@ export class BeerState {
             name: action.name
         };
 
-        firebase.database().ref('beers/products').push(
+        this.fireDatabase.database.ref('beers/products').push(
             beer,
             (error?) => {
                 this.patchLoadingOperations(context, -1);

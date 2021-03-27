@@ -4,6 +4,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
@@ -27,6 +29,8 @@ import { UserState } from './store/user.state';
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    AngularFireAnalyticsModule,
     NgxsModule.forRoot([
       UserState,
       BeerState

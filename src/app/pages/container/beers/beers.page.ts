@@ -1,6 +1,8 @@
+import { Subject } from 'rxjs';
 import { BeerModel } from './../../../utils/models/beer/beer.model';
-import firebase from 'firebase';
 import { Component, OnInit } from '@angular/core';
+import { debounceTime, switchMap } from 'rxjs/operators';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Component({
   selector: 'app-beers',
@@ -9,23 +11,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BeersPage implements OnInit {
 
+  private searchTextSubject = new Subject<string>();
+
   public loading: boolean = false;
   public availableBeers: BeerModel[] = [];
 
-  constructor() { }
+  constructor(private readonly fireDatabase: AngularFireDatabase) { }
 
   async ngOnInit() {
-    await this.loadData();
+    await this.loadData("");
+
+    this.searchTextSubject
+      .pipe(debounceTime(150), switchMap(async (text: string) => {
+        await this.loadData(text);
+      })).subscribe();
   }
 
-  async loadData(): Promise<void> {
+  async loadData(searchText: string): Promise<void> {
     this.loading = true;
-    const beers = (await firebase.database().ref('beers/products').get()).val();
+    this.availableBeers = [];
+    const beers = (await this.fireDatabase.database.ref('beers/products').get()).val();
     for (let key in beers) {
-      this.availableBeers.push(beers[key]);
+      const beer = beers[key] as BeerModel;
+      if(searchText === ""){
+        this.availableBeers.push(beer);
+        continue;
+      }
+      if(beer.name.toLowerCase().includes(searchText.toLowerCase()) ||
+          beer.manufacturer.toLowerCase().includes(searchText.toLowerCase()) ){
+        this.availableBeers.push(beers[key]);
+      }
     }
-    console.log(this.availableBeers)
     this.loading = false;
+  }
+
+  searchTextChange(text: string): void {
+    this.searchTextSubject.next(text);
   }
 
 }
