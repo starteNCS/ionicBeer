@@ -51,6 +51,13 @@ export class BeerState {
         this.router.navigateByUrl('/');
     }
 
+    @Action(Beer.Rate)
+    async rateBeer(context: StateContext<BeerStateModel>, action: Beer.Rate): Promise<void> {
+        this.patchLoadingOperations(context, +1);
+
+        
+    }
+
     private patchLoadingOperations(context: StateContext<BeerStateModel>, by: number): void {
         context.patchState({ loadingOperations: context.getState().loadingOperations + by });
     }

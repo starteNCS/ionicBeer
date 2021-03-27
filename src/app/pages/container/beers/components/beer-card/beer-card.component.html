@@ -10,7 +10,7 @@
   <ion-item>
     <ion-label>Meine</ion-label>
     <ion-note slot="end" color="secondary" *ngIf="hasOwnRating">{{rating | number:'1.2-2'}}</ion-note>
-    <ion-button fill="outline" slot="end" *ngIf="!hasOwnRating">Bewerten</ion-button>
+    <ion-button fill="outline" slot="end" *ngIf="!hasOwnRating" (click)="rate()">Bewerten</ion-button>
   </ion-item>
   <ion-item>
     <ion-label>Durschnitt</ion-label>

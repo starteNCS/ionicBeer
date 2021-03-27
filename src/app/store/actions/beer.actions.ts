@@ -17,4 +17,19 @@ export namespace Beer {
         }
     }
 
+    export class Rate {
+        static readonly type = '[Beer] Rate';
+        constructor(public id: string, public rating: number) {}
+    }
+
+    export class RateSuccess {
+        static readonly type = '[Beer] RateSuccess';
+    }
+
+    export class RateFail extends FailToastAction {
+        static readonly type = '[Beer] RateFail';
+        constructor(errors: unknown) {
+            super(errors);
+        }
+    }
 }

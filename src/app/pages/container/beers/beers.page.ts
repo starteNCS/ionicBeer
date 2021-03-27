@@ -16,7 +16,8 @@ export class BeersPage implements OnInit {
   public loading: boolean = false;
   public availableBeers: BeerModel[] = [];
 
-  constructor(private readonly fireDatabase: AngularFireDatabase) { }
+  constructor(
+    private readonly fireDatabase: AngularFireDatabase) { }
 
   async ngOnInit() {
     await this.loadData("");
