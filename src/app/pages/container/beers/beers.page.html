@@ -14,9 +14,9 @@
 <ion-content>
   <ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
   <app-beer-card *ngFor="let beer of availableBeers"
-    [manufacturer]="beer.manufacturer"
-    [name]="beer.name"
-    [type]="beer.type"
+    [manufacturer]="beer.data().manufracturer"
+    [name]="beer.data().name"
+    [type]="beer.data().type.id"
     [hasOwnRating]="false"
     [average]="9">
   </app-beer-card>

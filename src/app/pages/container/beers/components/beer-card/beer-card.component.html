@@ -1,6 +1,6 @@
 <ion-card>
   <ion-card-header>
-    <ion-card-subtitle>{{typeString}}</ion-card-subtitle>
+    <ion-card-subtitle>{{(typeString | async)?.name}}</ion-card-subtitle>
     <ion-card-title>{{manufacturer}} {{name}}</ion-card-title>
   </ion-card-header>
   <ion-item>

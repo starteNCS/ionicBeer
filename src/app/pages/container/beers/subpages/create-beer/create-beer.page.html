@@ -12,7 +12,9 @@
   <div class="container" [formGroup]="formGroup">
     <div>
       <ion-select placeholder="Art" class="p-1 mt-3" formControlName="type">
-        <ion-select-option *ngFor="let type of types; index as i" [value]="i">{{type}}</ion-select-option>
+        <ion-select-option *ngFor="let type of (types | async)?.docs" [value]="type.id">
+          {{type.data().name}}
+        </ion-select-option>
       </ion-select>
       <ion-text color="danger" *ngIf="(type.dirty || type.touched) && type.hasError('required')">
         Die Art muss angegeben werden.

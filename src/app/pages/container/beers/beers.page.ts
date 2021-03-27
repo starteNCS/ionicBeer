@@ -1,8 +1,8 @@
+import { BeerEntity } from './../../../utils/entities/beer.entity';
+import { AngularFirestore, QueryDocumentSnapshot } from '@angular/fire/firestore';
 import { Subject } from 'rxjs';
-import { BeerModel } from './../../../utils/models/beer/beer.model';
 import { Component, OnInit } from '@angular/core';
 import { debounceTime, switchMap } from 'rxjs/operators';
-import { AngularFireDatabase } from '@angular/fire/database';
 
 @Component({
   selector: 'app-beers',
@@ -14,10 +14,10 @@ export class BeersPage implements OnInit {
   private searchTextSubject = new Subject<string>();
 
   public loading: boolean = false;
-  public availableBeers: BeerModel[] = [];
+  public availableBeers: QueryDocumentSnapshot<BeerEntity>[] = [];
 
   constructor(
-    private readonly fireDatabase: AngularFireDatabase) { }
+    private readonly firestore: AngularFirestore) { }
 
   async ngOnInit() {
     await this.loadData("");
@@ -31,18 +31,15 @@ export class BeersPage implements OnInit {
   async loadData(searchText: string): Promise<void> {
     this.loading = true;
     this.availableBeers = [];
-    const beers = (await this.fireDatabase.database.ref('beers/products').get()).val();
-    for (let key in beers) {
-      const beer = beers[key] as BeerModel;
-      if(searchText === ""){
-        this.availableBeers.push(beer);
-        continue;
+
+    this.firestore.collection<BeerEntity>('beers').get().subscribe(beers => {
+      if (searchText === '') {
+        this.availableBeers = beers.docs;
+        return;
       }
-      if(beer.name.toLowerCase().includes(searchText.toLowerCase()) ||
-          beer.manufacturer.toLowerCase().includes(searchText.toLowerCase()) ){
-        this.availableBeers.push(beers[key]);
-      }
-    }
+
+      this.availableBeers = beers.docs.filter(x => this.checkIfSearchTextIsEqual(x.data().name, searchText) || this.checkIfSearchTextIsEqual(x.data().manufracturer, searchText));
+    });
     this.loading = false;
   }
 
@@ -50,4 +47,7 @@ export class BeersPage implements OnInit {
     this.searchTextSubject.next(text);
   }
 
+  private checkIfSearchTextIsEqual(given: string, search: string): boolean {
+    return given.toLowerCase().includes(search.toLowerCase());
+  }
 }

@@ -1,3 +1,4 @@
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { BeerState } from './store/beer.state';
 import { FirebaseInterceptor } from './utils/interceptors/firebase.interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -31,6 +32,7 @@ import { UserState } from './store/user.state';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireAnalyticsModule,
+    AngularFirestoreModule,
     NgxsModule.forRoot([
       UserState,
       BeerState

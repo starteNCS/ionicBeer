@@ -1,3 +1,5 @@
+import { TypeEntity } from './../../../../../utils/entities/type.entity';
+import { AngularFirestore, QuerySnapshot } from '@angular/fire/firestore';
 import { takeUntil } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import { BeerState } from './../../../../../store/beer.state';
@@ -24,12 +26,12 @@ export class CreateBeerPage implements OnInit, OnDestroy {
   };
 
   public formGroup: FormGroup;
-  public types: string[];
+  public types: Observable<QuerySnapshot<TypeEntity>>;
 
   constructor(
     private readonly builder: FormBuilder,
     private readonly store: Store,
-    private readonly fireDatabase: AngularFireDatabase) { }
+    private readonly firestore: AngularFirestore) { }
 
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -64,8 +66,7 @@ export class CreateBeerPage implements OnInit, OnDestroy {
   }
 
   async getTypes(): Promise<void> {
-    const typesSnapshot = await this.fireDatabase.database.ref('beers/types').get();
-    this.types = typesSnapshot.val();
+    this.types = this.firestore.collection<TypeEntity>('types').get();
   }
 
   get type(): AbstractControl {
