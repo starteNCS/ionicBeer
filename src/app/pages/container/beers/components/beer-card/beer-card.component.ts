@@ -1,9 +1,10 @@
+import { Beer } from './../../../../../store/actions/beer.actions';
 import { Observable } from 'rxjs';
 import { TypeEntity } from './../../../../../utils/entities/type.entity';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Component, Input, OnInit } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { AlertController } from '@ionic/angular';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-beer-card',
@@ -12,6 +13,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class BeerCardComponent implements OnInit {
 
+  @Input() beerId: string;
   @Input() manufacturer: string;
   @Input() name: string;
   @Input() type: string;
@@ -22,7 +24,7 @@ export class BeerCardComponent implements OnInit {
   public typeString: Observable<TypeEntity>;
 
   constructor(
-    private readonly fireDatabase: AngularFireDatabase,
+    private readonly store: Store,
     private readonly firestore: AngularFirestore,
     private readonly alertController: AlertController) { }
 
@@ -35,26 +37,21 @@ export class BeerCardComponent implements OnInit {
     const alert = await this.alertController.create({
       header: `${this.manufacturer} ${this.name} bewerten`,
       message: 'Mit einer Zahl zwischen 0 und 10 bewerten',
+      backdropDismiss: true,
       inputs: [
         {
-          name: 'Bewertung',
+          name: 'rating',
           type: 'number',
           min: 0,
-          max: 10
+          max: 10,
+          placeholder: 'Bewertung'
         }
       ],
       buttons: [
         {
-          text: 'Abbrechen',
-          role: 'cancel',
-          handler: () => {
-
-          }
-        },
-        {
           text: 'Speichern',
-          handler: () => {
-
+          handler: (alertData) => {
+            this.store.dispatch(new Beer.Rate(this.beerId, alertData.rating));
           }
         }
       ]

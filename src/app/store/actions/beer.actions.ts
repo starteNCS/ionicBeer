@@ -19,7 +19,7 @@ export namespace Beer {
 
     export class Rate {
         static readonly type = '[Beer] Rate';
-        constructor(public id: string, public rating: number) {}
+        constructor(public beerId: string, public rating: number) {}
     }
 
     export class RateSuccess {
