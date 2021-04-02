@@ -2,7 +2,7 @@ import { Beer } from './../../../../../store/actions/beer.actions';
 import { Observable } from 'rxjs';
 import { TypeEntity } from './../../../../../utils/entities/type.entity';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Store } from '@ngxs/store';
 
@@ -20,6 +20,8 @@ export class BeerCardComponent implements OnInit {
   @Input() hasOwnRating: boolean;
   @Input() rating: number;
   @Input() average: number;
+
+  @Output() rated = new EventEmitter<void>();
 
   public typeString: Observable<TypeEntity>;
 
@@ -52,6 +54,7 @@ export class BeerCardComponent implements OnInit {
           text: 'Speichern',
           handler: (alertData) => {
             this.store.dispatch(new Beer.Rate(this.beerId, alertData.rating));
+            this.rated.emit();
           }
         }
       ]

@@ -18,9 +18,10 @@
     [manufacturer]="beer.manufracturer"
     [name]="beer.name"
     [type]="beer.type"
-    [hasOwnRating]="beer.rating !== undefined"
+    [hasOwnRating]="beer.rating !== undefined && !isNaN(beer.rating)"
     [rating]="beer.rating"
-    [average]="beer.average">
+    [average]="beer.average" 
+    (rated)="loadData('')" >
   </app-beer-card>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">

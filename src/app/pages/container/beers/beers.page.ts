@@ -48,13 +48,12 @@ export class BeersPage implements OnInit {
       }
 
       result.forEach(async beer => {
-        debugger;
         this.availableBeers.push(new BeerModel(
           beer.id,
           beer.data().type.id,
           beer.data().manufracturer,
           beer.data().name,
-          this.userRatings.find(x => x.data().beer.id === beer.id)?.data().rating,
+          +this.userRatings.find(x => x.data().beer.id === beer.id)?.data().rating,
           await this.calculateAverage(beer.id)
         ));
       });
@@ -69,17 +68,20 @@ export class BeersPage implements OnInit {
     });
   }
 
-  calculateAverage(beerId: string): number {
+  async calculateAverage(beerId: string): Promise<number> {
     let sum = 0;
     let ratingsSize = 0;
-    const ratingsForBeer = this.firestore.collection<RatingEntity>('ratings', ref => ref.where('beer', '==', beerId)).get();
-    ratingsForBeer.subscribe(ratings => {
-      ratingsSize = ratings.size;
-      ratings.forEach(rating => {
-        sum += rating.data().rating;
-      });
+    let beerReference = this.firestore.collection('beers').doc(beerId);
+    const ratingsForBeer = await this.firestore
+      .collection<RatingEntity>('ratings', ref => ref.where('beer', '==', beerReference.ref))
+      .get()
+      .toPromise();
+    ratingsSize = ratingsForBeer.size;
+    ratingsForBeer.forEach(rating => {
+      sum += +rating.data().rating;
     });
-    return sum / ratingsSize;
+    const average = sum / ratingsSize;
+    return Number.isNaN(average) ? -1 : average;
   }
 
   searchTextChange(text: Event): void {
@@ -88,6 +90,10 @@ export class BeersPage implements OnInit {
 
   clearInput(): void {
     this.searchTextSubject.next('');
+  }
+
+  isNaN(test: number): boolean {
+    return Number.isNaN(test);
   }
 
   private checkIfSearchTextIsEqual(given: string, search: string): boolean {

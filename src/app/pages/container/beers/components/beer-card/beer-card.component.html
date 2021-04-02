@@ -14,7 +14,7 @@
   </ion-item>
   <ion-item>
     <ion-label>Durschnitt</ion-label>
-    <ion-note slot="end" color="secondary" *ngIf="average !== undefined">{{average | number:'1.2-2'}}</ion-note>
-    <ion-note slot="end" color="secondary" *ngIf="average === undefined">N / A</ion-note>
+    <ion-note slot="end" color="secondary" *ngIf="average !== -1">{{average | number:'1.2-2'}}</ion-note>
+    <ion-note slot="end" color="secondary" *ngIf="average === -1">N / A</ion-note>
   </ion-item>
 </ion-card>
