@@ -82,8 +82,12 @@ export class BeersPage implements OnInit {
     return sum / ratingsSize;
   }
 
-  searchTextChange(text: string): void {
-    this.searchTextSubject.next(text);
+  searchTextChange(text: Event): void {
+    this.searchTextSubject.next((text.target as HTMLInputElement).value);
+  }
+
+  clearInput(): void {
+    this.searchTextSubject.next('');
   }
 
   private checkIfSearchTextIsEqual(given: string, search: string): boolean {
