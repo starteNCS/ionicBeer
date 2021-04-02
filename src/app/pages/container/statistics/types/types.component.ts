@@ -17,7 +17,7 @@ export class TypesComponent implements OnChanges {
     showLines: false
   };
   public colors: Color[] = [{
-    backgroundColor: ["#003f5c", "#2f4b7c", "#665191", "#a05195", "#d45087", "#f95d6a", "#ff7c43", "#ffa600"],
+    backgroundColor: ["#6050DC", "#D52DB7", "#FF2E7E", "#FF6B45", "#FFAB05", "#00529B"],
     borderWidth: 0.75
   }]
   public pieChartType: ChartType = 'pie';

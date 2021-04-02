@@ -1,4 +1,7 @@
-<ion-card *ngIf="labels && values">
+<ion-card>
+  <div class="mt-2">
+    <ion-text class="mt-2 text-center w-100"><h4>Meist getrunkene Sorten</h4></ion-text>
+  </div>
   <ion-card-content>
     <canvas baseChart [data]="values" [labels]="labels" [chartType]="pieChartType"
       [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend" [colors]="colors">

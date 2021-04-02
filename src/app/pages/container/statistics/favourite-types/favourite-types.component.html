@@ -1,0 +1,7 @@
+<ion-card *ngIf="favourites">
+  <ion-card-content>
+    <ion-text>Deine Lieblingssorte ist</ion-text>
+    <ion-text color="dark"><h1>{{favourites[0]?.name}}bier</h1></ion-text>
+    <ion-text>Hierbei hast du bei {{favourites[0]?.count}} probiertem Bier im Schnitt eine Bewertung von {{favourites[0]?.rating | number:'1.2-2'}} gegeben.</ion-text>
+  </ion-card-content>
+</ion-card>

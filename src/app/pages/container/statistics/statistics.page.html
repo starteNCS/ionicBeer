@@ -6,6 +6,9 @@
 
 <ion-content>
   <ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
-  <app-favourites [ratings]="favourites"></app-favourites>
-  <app-types [labels]="typePieChartLabels" [values]="typePieChartValues"></app-types>
+  <div *ngIf="!loading">
+    <app-favourites [ratings]="favourites"></app-favourites>
+    <app-favourite-types [favourites]="favouriteTypes"></app-favourite-types>
+    <app-types [labels]="typePieChartLabels" [values]="typePieChartValues"></app-types>
+  </div>
 </ion-content>

@@ -1,3 +1,4 @@
+import { TypeModel } from './../../../utils/models/beer/type.model';
 import { Label, SingleDataSet, Color } from 'ng2-charts';
 import { TypeEntity } from './../../../utils/entities/type.entity';
 import { BeerStatModel } from './../../../utils/models/beer/beer-stat.model';
@@ -6,6 +7,7 @@ import { RatingEntity } from './../../../utils/entities/rating.entity';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { FavouriteTypeModel } from './models/favourite-type.model';
 
 @Component({
   selector: 'app-statistics',
@@ -20,6 +22,8 @@ export class StatisticsPage implements OnInit {
 
   favourites: RatingModel[];
 
+  favouriteTypes: FavouriteTypeModel[] = [];
+
   typePieChartLabels: Label[] = [];
   typePieChartValues: SingleDataSet = [];
   typePieChartColors: Color[] = [];
@@ -33,9 +37,29 @@ export class StatisticsPage implements OnInit {
       this.allRatedBeers = data;
       this.calculateTypePieChart();
       this.calculateFavourite();
+      this.calculateFavouriteTypes();
     }).catch(err => {
       console.log(err);
     })
+  }
+
+  async calculateFavouriteTypes(): Promise<void> {
+    const types = await this.fireStore.collection<TypeEntity>('types').get().toPromise();
+    
+    types.forEach(type => {
+      const ratedTypes = this.allRatedBeers.filter(item => item.beer.type.id === type.id);
+      const size = ratedTypes.length;
+      if(size === 0){return;}
+      let sum = 0;
+      ratedTypes.forEach((x) => sum += +x.rating);
+      this.favouriteTypes.push({
+        name: type.data().name,
+        rating: sum / size,
+        count: size
+      });
+    });
+
+    this.favouriteTypes.sort((a, b) => b.rating - a.rating);
   }
 
   async calculateTypePieChart(): Promise<void> {
@@ -49,6 +73,8 @@ export class StatisticsPage implements OnInit {
       this.typePieChartLabels.push(type.data().name);
       this.typePieChartValues.push(countForCurrentType);
     });
+    this.typePieChartLabels = this.typePieChartLabels.slice(0, 6);
+    this.typePieChartValues = this.typePieChartValues.slice(0, 6);
   }
 
   private calculateFavourite(): void {

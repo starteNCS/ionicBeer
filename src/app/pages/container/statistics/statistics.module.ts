@@ -10,6 +10,7 @@ import { StatisticsPageRoutingModule } from './statistics-routing.module';
 import { StatisticsPage } from './statistics.page';
 import { TypesComponent } from './types/types.component';
 import { ChartsModule } from 'ng2-charts';
+import { FavouriteTypesComponent } from './favourite-types/favourite-types.component';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { ChartsModule } from 'ng2-charts';
   declarations: [
     StatisticsPage,
     TypesComponent,
-    FavouritesComponent
+    FavouritesComponent,
+    FavouriteTypesComponent
   ]
 })
 export class StatisticsPageModule {}
