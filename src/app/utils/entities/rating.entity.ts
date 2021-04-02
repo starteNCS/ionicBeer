@@ -4,6 +4,6 @@ import { BeerEntity } from './beer.entity';
 export interface RatingEntity {
     user: string;
     beer: DocumentReference<BeerEntity>;
-    ratedAt: Date;
+    ratedAt: unknown; // since i havent found an object to represent the firestore timestamp
     rating: number;
 }

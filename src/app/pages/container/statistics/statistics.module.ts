@@ -1,3 +1,4 @@
+import { FavouritesComponent } from './favourites/favourites.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -21,6 +22,7 @@ import { ChartsModule } from 'ng2-charts';
   declarations: [
     StatisticsPage,
     TypesComponent,
+    FavouritesComponent
   ]
 })
 export class StatisticsPageModule {}

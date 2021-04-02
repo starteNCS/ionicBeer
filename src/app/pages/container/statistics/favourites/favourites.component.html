@@ -1,0 +1,18 @@
+<ion-card *ngIf="ratings">
+  <ion-card-content>
+    <ion-text>Dein Lieblingsbier ist</ion-text>
+    <ion-text color="dark"><h1>{{ratings[0].beer.manufracturer}} {{ratings[0].beer.name}}</h1></ion-text>
+    <ion-text>Dies hast du am {{ratings[0].ratedAt.toDate() | date:'dd.MM.yyyy'}} mit einer {{ratings[0].rating | number:'1.2-2'}} bewertet.</ion-text>
+
+    <div *ngIf="ratings.length >= 3">
+      <ion-item>
+        <ion-text class="pr-1" color="medium">2. Platz:</ion-text>
+        <ion-label color="medium">{{ratings[1].beer.manufracturer}} {{ratings[1].beer.name}} mit {{ratings[1].rating | number:'1.2-2'}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-text class="pr-1" color="medium">3. Platz:</ion-text>
+        <ion-label color="medium">{{ratings[2].beer.manufracturer}} {{ratings[2].beer.name}} mit {{ratings[2].rating | number:'1.2-2'}}</ion-label>
+      </ion-item>
+    </div>
+  </ion-card-content>
+</ion-card>
