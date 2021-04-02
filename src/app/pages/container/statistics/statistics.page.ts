@@ -1,6 +1,8 @@
+import { Label, SingleDataSet, Color } from 'ng2-charts';
+import { TypeEntity } from './../../../utils/entities/type.entity';
+import { BeerStatModel } from './../../../utils/models/beer/beer-stat.model';
 import { RatingModel } from './../../../utils/models/beer/rating.model';
 import { RatingEntity } from './../../../utils/entities/rating.entity';
-import { BeerEntity } from './../../../utils/entities/beer.entity';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -15,8 +17,12 @@ export class StatisticsPage implements OnInit {
   private allRatedBeers: RatingModel[] = [];
 
   loading: boolean;
+
   favourites: RatingModel[];
 
+  typePieChartLabels: Label[] = [];
+  typePieChartValues: SingleDataSet = [];
+  typePieChartColors: Color[] = [];
 
   constructor(
     private readonly fireStore: AngularFirestore,
@@ -25,10 +31,24 @@ export class StatisticsPage implements OnInit {
   async ngOnInit() {
     this.loadAllRatedBeers().then(data => {
       this.allRatedBeers = data;
+      this.calculateTypePieChart();
       this.calculateFavourite();
     }).catch(err => {
-      debugger;
+      console.log(err);
     })
+  }
+
+  async calculateTypePieChart(): Promise<void> {
+    const types = await this.fireStore.collection<TypeEntity>('types').get().toPromise();
+
+    types.forEach(type => {
+      const countForCurrentType = this.allRatedBeers.filter(x => x.beer.type.id == type.id).length;
+      if(countForCurrentType === 0) {
+        return;
+      }
+      this.typePieChartLabels.push(type.data().name);
+      this.typePieChartValues.push(countForCurrentType);
+    });
   }
 
   private calculateFavourite(): void {
@@ -47,10 +67,20 @@ export class StatisticsPage implements OnInit {
 
     const ratingsModels: RatingModel[] = [];
     for await (let rating of ratings.docs) {
+      const beerEntity = await rating.data().beer.get();
+      const typeEntity = (await beerEntity.data().type.get());
+      const beerModel: BeerStatModel = {
+        manufracturer: beerEntity.data().manufracturer,
+        name: beerEntity.data().name,
+        type: {
+          id: typeEntity.id,
+          name: typeEntity.data().name
+        } 
+      }
       ratingsModels.push({
         rating: rating.data().rating,
         ratedAt: rating.data().ratedAt,
-        beer: (await rating.data().beer.get()).data()
+        beer: beerModel
       });
     }
 

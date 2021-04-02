@@ -1,7 +1,7 @@
-import { BeerEntity } from "../../entities/beer.entity";
+import { BeerStatModel } from './beer-stat.model';
 
 export class RatingModel {
-    beer: BeerEntity;
+    beer: BeerStatModel;
     ratedAt: any;
     rating: number;
 }

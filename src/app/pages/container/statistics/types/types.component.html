@@ -1,7 +1,7 @@
-<ion-card>
+<ion-card *ngIf="labels && values">
   <ion-card-content>
-    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-      [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+    <canvas baseChart [data]="values" [labels]="labels" [chartType]="pieChartType"
+      [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend" [colors]="colors">
     </canvas>
   </ion-card-content>
 </ion-card>

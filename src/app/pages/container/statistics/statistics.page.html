@@ -7,5 +7,5 @@
 <ion-content>
   <ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
   <app-favourites [ratings]="favourites"></app-favourites>
-  <!-- <app-types></app-types> -->
+  <app-types [labels]="typePieChartLabels" [values]="typePieChartValues"></app-types>
 </ion-content>
