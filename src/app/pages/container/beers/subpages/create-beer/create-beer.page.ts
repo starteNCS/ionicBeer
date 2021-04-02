@@ -66,7 +66,7 @@ export class CreateBeerPage implements OnInit, OnDestroy {
   }
 
   async getTypes(): Promise<void> {
-    this.types = this.firestore.collection<TypeEntity>('types').get();
+    this.types = this.firestore.collection<TypeEntity>('types', ref => ref.orderBy('name')).get();
   }
 
   get type(): AbstractControl {
