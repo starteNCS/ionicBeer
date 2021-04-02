@@ -4,17 +4,13 @@
     <ion-card-title>{{manufacturer}} {{name}}</ion-card-title>
   </ion-card-header>
   <ion-item>
-    <ion-label>Bewertungen</ion-label>
-    <ion-note slot="end" color="secondary">von 10</ion-note>
-  </ion-item>
-  <ion-item>
     <ion-label>Meine</ion-label>
     <ion-note slot="end" color="secondary" *ngIf="hasOwnRating">{{rating | number:'1.2-2'}}</ion-note>
     <ion-button fill="outline" slot="end" *ngIf="!hasOwnRating" (click)="rate()">Bewerten</ion-button>
   </ion-item>
   <ion-item>
     <ion-label>Durschnitt</ion-label>
-    <ion-note slot="end" color="secondary" *ngIf="average !== -1">{{average | number:'1.2-2'}}</ion-note>
-    <ion-note slot="end" color="secondary" *ngIf="average === -1">N / A</ion-note>
+    <ion-note slot="end" color="secondary" *ngIf="average.average !== -1">{{average.average| number:'1.2-2'}} bei {{average.raters}} Bewertungen</ion-note>
+    <ion-note slot="end" color="secondary" *ngIf="average.average === -1">N / A</ion-note>
   </ion-item>
 </ion-card>

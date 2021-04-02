@@ -19,7 +19,7 @@ export class BeerCardComponent implements OnInit {
   @Input() type: string;
   @Input() hasOwnRating: boolean;
   @Input() rating: number;
-  @Input() average: number;
+  @Input() average: {average: number, raters: number};
 
   @Output() rated = new EventEmitter<void>();
 

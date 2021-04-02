@@ -67,7 +67,7 @@ export class BeersPage implements OnInit {
     });
   }
 
-  async calculateAverage(beerId: string): Promise<number> {
+  async calculateAverage(beerId: string): Promise<{average: number, raters: number}> {
     let sum = 0;
     let ratingsSize = 0;
     let beerReference = this.firestore.collection('beers').doc(beerId);
@@ -80,7 +80,7 @@ export class BeersPage implements OnInit {
       sum += +rating.data().rating;
     });
     const average = sum / ratingsSize;
-    return Number.isNaN(average) ? -1 : average;
+    return Number.isNaN(average) ? {average: -1, raters: 0} : {average, raters: ratingsSize};
   }
 
   searchTextChange(text: Event): void {

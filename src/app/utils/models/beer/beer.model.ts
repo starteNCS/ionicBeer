@@ -5,5 +5,5 @@ export class BeerModel {
         public manufracturer: string,
         public name: string,
         public rating?: number,
-        public average?: number) { }
+        public average?: {average: number, raters: number}) { }
 }
