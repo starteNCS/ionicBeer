@@ -1,6 +1,9 @@
 export class BeerModel {
-    id?: string;
-    type: number;
-    manufacturer: string;
-    name: string;
+    constructor(
+        public id: string,
+        public type: string,
+        public manufracturer: string,
+        public name: string,
+        public rating?: number,
+        public average?: number) { }
 }
