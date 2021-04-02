@@ -40,7 +40,6 @@ export class BeersPage implements OnInit {
     this.availableBeers = [];
 
     this.firestore.collection<BeerEntity>('beers').get().pipe(switchMap(async beers => {
-      debugger;
       let result = beers.docs;
       if (searchText !== '') {
         result = beers.docs.
