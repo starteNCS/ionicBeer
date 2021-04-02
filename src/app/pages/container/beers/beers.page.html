@@ -13,6 +13,9 @@
 
 <ion-content>
   <ion-progress-bar type="indeterminate" *ngIf="loading"></ion-progress-bar>
+  <div class="p-2 pb-0 w-100 d-flex flex-row-reverse">
+    <ion-text>{{availableBeers.length}} Biere</ion-text>
+  </div>
   <app-beer-card *ngFor="let beer of availableBeers"
     [beerId]="beer.id"
     [manufacturer]="beer.manufracturer"
@@ -21,7 +24,7 @@
     [hasOwnRating]="beer.rating !== undefined && !isNaN(beer.rating)"
     [rating]="beer.rating"
     [average]="beer.average" 
-    (rated)="loadData('')" >
+    (rated)="clearInput()" >
   </app-beer-card>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
