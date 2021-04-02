@@ -40,11 +40,11 @@ export class BeersPage implements OnInit {
     this.availableBeers = [];
 
     this.firestore.collection<BeerEntity>('beers').get().pipe(switchMap(async beers => {
+      debugger;
       let result = beers.docs;
       if (searchText !== '') {
         result = beers.docs.
           filter(x => this.checkIfSearchTextIsEqual(x.data().name, searchText) || this.checkIfSearchTextIsEqual(x.data().manufracturer, searchText));
-        return;
       }
 
       result.forEach(async beer => {
@@ -57,8 +57,8 @@ export class BeersPage implements OnInit {
           await this.calculateAverage(beer.id)
         ));
       });
+      this.loading = false;
     })).subscribe();
-    this.loading = false;
   }
 
   async synchronizeRatings(): Promise<void> {
