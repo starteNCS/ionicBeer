@@ -21,6 +21,7 @@ export class StatisticsPage implements OnInit {
   loading: boolean;
 
   favourites: RatingModel[];
+  favouriteCount: number;
 
   favouriteTypes: FavouriteTypeModel[] = [];
 
@@ -80,6 +81,7 @@ export class StatisticsPage implements OnInit {
   private calculateFavourite(): void {
     const copy = this.allRatedBeers;
     copy.sort((a, b) => b.rating - a.rating);
+    this.favouriteCount = copy.length;
     this.favourites = copy.slice(0, 3);
   }
 

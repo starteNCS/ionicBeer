@@ -9,5 +9,6 @@ import { Component, Input, OnInit } from '@angular/core';
 export class FavouritesComponent {
 
   @Input() ratings: RatingModel[];
+  @Input() count: number;
 
 }

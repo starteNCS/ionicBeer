@@ -2,7 +2,7 @@
   <ion-card-content>
     <ion-text>Dein Lieblingsbier ist</ion-text>
     <ion-text color="dark"><h1>{{ratings[0].beer.manufracturer}} {{ratings[0].beer.name}}</h1></ion-text>
-    <ion-text>Dies hast du am {{ratings[0].ratedAt.toDate() | date:'dd.MM.yyyy'}} mit einer {{ratings[0].rating | number:'1.2-2'}} bewertet.</ion-text>
+    <ion-text>Dies hast du am {{ratings[0].ratedAt.toDate() | date:'dd.MM.yyyy'}} mit einer {{ratings[0].rating | number:'1.2-2'}} bewertet und ist damit besser als alle {{count}} anderen probierten Biere.</ion-text>
 
     <div *ngIf="ratings.length >= 3">
       <ion-item>
