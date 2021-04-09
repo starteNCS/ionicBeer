@@ -46,11 +46,11 @@ export class StatisticsPage implements OnInit {
 
   async calculateFavouriteTypes(): Promise<void> {
     const types = await this.fireStore.collection<TypeEntity>('types').get().toPromise();
-    
+
     types.forEach(type => {
       const ratedTypes = this.allRatedBeers.filter(item => item.beer.type.id === type.id);
       const size = ratedTypes.length;
-      if(size === 0){return;}
+      if (size === 0) { return; }
       let sum = 0;
       ratedTypes.forEach((x) => sum += +x.rating);
       this.favouriteTypes.push({
@@ -65,17 +65,17 @@ export class StatisticsPage implements OnInit {
 
   async calculateTypePieChart(): Promise<void> {
     const types = await this.fireStore.collection<TypeEntity>('types').get().toPromise();
-
+    const allRatedList: any[] = [];
     types.forEach(type => {
       const countForCurrentType = this.allRatedBeers.filter(x => x.beer.type.id == type.id).length;
-      if(countForCurrentType === 0) {
+      if (countForCurrentType === 0) {
         return;
       }
-      this.typePieChartLabels.push(type.data().name);
-      this.typePieChartValues.push(countForCurrentType);
+      allRatedList.push({ name: type.data().name, count: countForCurrentType });
     });
-    this.typePieChartLabels = this.typePieChartLabels.slice(0, 6);
-    this.typePieChartValues = this.typePieChartValues.slice(0, 6);
+    allRatedList.sort((a, b) => b.count - a.count);
+    this.typePieChartLabels = allRatedList.map(x => x.name).slice(0, 6);
+    this.typePieChartValues = allRatedList.map(x => x.count).slice(0, 6);
   }
 
   private calculateFavourite(): void {
@@ -103,7 +103,7 @@ export class StatisticsPage implements OnInit {
         type: {
           id: typeEntity.id,
           name: typeEntity.data().name
-        } 
+        }
       }
       ratingsModels.push({
         rating: rating.data().rating,
