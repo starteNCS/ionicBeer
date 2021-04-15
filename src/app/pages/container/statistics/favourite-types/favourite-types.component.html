@@ -2,6 +2,7 @@
   <ion-card-content>
     <ion-text>Deine Lieblingssorte ist</ion-text>
     <ion-text color="dark"><h1>{{favourites[0]?.name}}bier</h1></ion-text>
-    <ion-text>Hierbei hast du bei {{favourites[0]?.count}} probiertem Bier im Schnitt eine Bewertung von {{favourites[0]?.rating | number:'1.2-2'}} gegeben.</ion-text>
+    <ion-text>Hierbei hast du bei {{favourites[0]?.count}} probiertem Bier im Schnitt eine Bewertung von {{favourites[0]?.rating | number:'1.2-2'}} gegeben.</ion-text><br/>
+    <ion-text>Dem entgegengestellt magst du {{favourites[favourites.length - 1]?.name}} am wenigsten. Diesem gibst du im Schnitt eine Bewertung von {{favourites[favourites.length - 1]?.rating | number:'1.2-2'}}.</ion-text>
   </ion-card-content>
 </ion-card>

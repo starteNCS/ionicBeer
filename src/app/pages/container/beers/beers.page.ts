@@ -88,6 +88,7 @@ export class BeersPage implements OnInit {
   }
 
   clearInput(): void {
+    this.availableBeers = []
     this.searchTextSubject.next('');
   }
 
