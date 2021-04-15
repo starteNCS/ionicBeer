@@ -1,3 +1,5 @@
+import { UserEntity } from './../utils/entities/user.entity';
+import { AngularFirestore } from '@angular/fire/firestore';
 import firebase from 'firebase';
 import { UserStateModel } from './models/user-state.model';
 import { Injectable } from "@angular/core";
@@ -23,7 +25,8 @@ export class UserState {
 
     constructor(
         private readonly router: Router,
-        private readonly firebaseAuth: AngularFireAuth
+        private readonly firebaseAuth: AngularFireAuth,
+        private readonly firestore: AngularFirestore
     ) { }
 
     @Action(User.Create)
@@ -35,6 +38,10 @@ export class UserState {
             .then((response: firebase.auth.UserCredential) => {
                 firebase.auth().currentUser.updateProfile({
                     displayName: action.createUserModel.name
+                });
+                this.firestore.collection<UserEntity>('users').doc(firebase.auth().currentUser.uid).set({
+                    name: action.createUserModel.name,
+                    canAddBeer: false
                 });
                 this.router.navigateByUrl('/');
             }, (error) => {

@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{beer?.manufracturer}} {{beer?.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card *ngIf="ownRating">
+    <ion-card-header>
+      <ion-card-title>
+        Bewertung
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Du hast diesem Bier eine {{ownRating?.rating | number:'1.2-2'}} gegeben.
+      Damit liegst du {{Math.abs(ratingDiff) | number:'1.2-2'}} 
+      {{ratingDiff >= 0 ? 'über' : 'unter'}}      
+      über dem Durchschnitt.
+      <ion-button color="medium" class="w-100" (click)="rate()">Ändern</ion-button>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        Alle Bewertungen
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Der Durchschnitt bei diesem Bier liegt bei {{average | number:'1.2-2'}}.
+      <ion-item *ngFor="let rating of ratings">
+        <ion-label>{{rating.name}}</ion-label>
+        <ion-note slot="end" color="secondary">{{rating.rating | number:'1.2-2'}}</ion-note>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

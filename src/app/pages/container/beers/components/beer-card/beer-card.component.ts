@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Beer } from './../../../../../store/actions/beer.actions';
 import { Observable } from 'rxjs';
 import { TypeEntity } from './../../../../../utils/entities/type.entity';
@@ -28,7 +29,8 @@ export class BeerCardComponent implements OnInit {
   constructor(
     private readonly store: Store,
     private readonly firestore: AngularFirestore,
-    private readonly alertController: AlertController) { }
+    private readonly alertController: AlertController,
+    private readonly router: Router) { }
 
   async ngOnInit() {
     const typeRef = this.firestore.collection<TypeEntity>('types').doc(this.type);
@@ -61,6 +63,10 @@ export class BeerCardComponent implements OnInit {
     });
 
     await alert.present();
+  }
+
+  openInfo(): void {
+    this.router.navigateByUrl(`/container/beers/info/${this.beerId}`);
   }
 
 }

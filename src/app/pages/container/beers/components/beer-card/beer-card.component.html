@@ -1,6 +1,8 @@
 <ion-card>
   <ion-card-header>
-    <ion-card-subtitle>{{(typeString | async)?.name}}</ion-card-subtitle>
+    <ion-card-subtitle>
+      {{(typeString | async)?.name}}
+    </ion-card-subtitle>
     <ion-card-title>{{manufacturer}} {{name}}</ion-card-title>
   </ion-card-header>
   <ion-item>
@@ -12,5 +14,8 @@
     <ion-label>Durchschnitt</ion-label>
     <ion-note slot="end" color="secondary" *ngIf="average.average !== -1">{{average.average| number:'1.2-2'}} bei {{average.raters}} Bewertungen</ion-note>
     <ion-note slot="end" color="secondary" *ngIf="average.average === -1">N / A</ion-note>
+  </ion-item>
+  <ion-item *ngIf="hasOwnRating || average.average != -1">
+    <ion-button fill="outline" slot="end" color="medium" (click)="openInfo()">Mehr Informationen</ion-button>
   </ion-item>
 </ion-card>

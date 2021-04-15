@@ -11,7 +11,12 @@ const routes: Routes = [
   {
     path: 'create-beer',
     loadChildren: () => import('./subpages/create-beer/create-beer.module').then( m => m.CreateBeerPageModule)
+  },
+  {
+    path: 'info/:id',
+    loadChildren: () => import('./subpages/beer-info/beer-info.module').then( m => m.BeerInfoPageModule)
   }
+
 ];
 
 @NgModule({
